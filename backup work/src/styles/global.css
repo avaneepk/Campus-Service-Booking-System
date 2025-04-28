@@ -148,15 +148,17 @@ body {
   }
   
   .cancel-button {
-    background-color: #ff9800;
-    color: white;
+    background-color: #e53935;
+    color: #fff;
     border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
   }
   
   .cancel-button:hover {
-    background-color: #e68900;
+    background-color: #b71c1c;
   }
   
   /* Room Status Page Styles */
@@ -831,10 +833,50 @@ button {
   color: #666;
 }
 
-/* Error Message */
 .error-message {
   color: red;
   text-align: center;
   font-size: 18px;
   margin-top: 20px;
+}
+
+.room-status-container, .calendar-container, .manage-bookings-container, .facilities-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+@media (max-width: 600px) {
+  .calendar-container, .manage-bookings-container, .facilities-container {
+    padding: 8px;
+  }
+  .hours-grid, .bookings-grid, .facility-list {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.notification-banner {
+  background: #4caf50;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  margin: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.notification-banner button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-guide {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
 }
