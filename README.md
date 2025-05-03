@@ -7,18 +7,23 @@
 In terminal:
 
 1. go to the middleware_py directory
+   
 cd middleleware_py
 
-2. Create a virtual environment
+3. Create a virtual environment
+
 python -m venv venv
 
-3. Activate the virtual environment
+4. Activate the virtual environment
+
 venv\Scripts\activate
 
-4. Install dependencies from requirements.txt
+5. Install dependencies from requirements.txt
+
 pip install -r requirements.txt
 
-5. run app
+6. run app
+
 python app.py
 
 so far: update asap
