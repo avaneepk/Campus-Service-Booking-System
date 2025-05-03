@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import '../styles/global.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage = () => {
   const [username, setUsername] = useState('');
@@ -9,22 +9,22 @@ const RegistrationPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
 
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-    const userExists = registeredUsers.some((user: { email: string }) => user.email === email);
-
-    if (userExists) {
-      setError('Email is already registered. Please log in.');
-      return;
+    try {
+      const response = await axios.post('http://localhost:5000/register', {
+        username,
+        email,
+        password
+      });
+      alert(response.data.message);
+      navigate('/login'); // go to login page after registration
+    } catch (err: any) {
+      console.error(err);
+      setError(err.response?.data?.error || 'Registration failed.');
     }
-
-    // Register the user
-    const newUser = { username, email, password };
-    localStorage.setItem('registeredUsers', JSON.stringify([...registeredUsers, newUser]));
-    alert('Registration successful! Please log in.');
-    navigate('/login'); // Redirect to LoginPage
   };
 
   return (
@@ -34,42 +34,39 @@ const RegistrationPage = () => {
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
-            type="text"
             id="username"
+            type="text"
+            required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your username"
-            required
+            placeholder="Enter username"
           />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
-            type="email"
             id="email"
+            type="email"
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
+            placeholder="Enter email"
           />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
-            type="password"
             id="password"
+            type="password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
+            placeholder="Enter password"
           />
         </div>
         <button type="submit" className="form-button">Register</button>
         {error && <p className="error-message">{error}</p>}
       </form>
-      <p style={{ textAlign: 'center', marginTop: '10px' }}>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
     </div>
   );
 };
