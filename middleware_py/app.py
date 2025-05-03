@@ -2,17 +2,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import zeep
 import random
-from AzureConn import connect
-import psycopg2
 
 app = Flask(__name__)
 CORS(app)
 
 WSDL_URL = 'http://localhost:8000/auth?wsdl'
-
-@app.route('/')
-def home():
-    return "Welcome to the Campus Service Booking System API!"
 
 @app.route('/api/login', methods=['POST'])
 def login():
